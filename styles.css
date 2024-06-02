@@ -1,0 +1,9 @@
+.reg {
+  transition: all 0.3s;
+  scale: 0;
+}
+
+.reg-form {
+  transform: translateY(-150%);
+  transition: all 0.7s;
+}
