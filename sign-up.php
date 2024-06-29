@@ -16,6 +16,7 @@
     
     if($result){
         $_SESSION['username'] = $f_name;
+        $_SESSION['user_id'] = mysqli_insert_id($connection);
         header("Location: $base_url/home.php");
     }
 

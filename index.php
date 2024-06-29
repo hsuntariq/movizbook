@@ -7,11 +7,30 @@
     <?php include './boot_css.php' ?>
     <link rel="stylesheet" href="./styles.css">
     <title>MovizBook - log in or sign up</title>
-    
+        
 </head>
 <body>
 
+    <?php
+    session_start();
+        include './config.php';
+        if(isset($_SESSION['username'])){
+            header("Location: $base_url/home.php");
+        }
 
+        if(isset($_SESSION['invalid_user'])){
+        ?>
+
+            <div style="max-width:300px;left:50%;transform:translateX(-50%); width:max-content;background:red;top:30px;" class="flash position-fixed p-3 text-white rounded-pill fw-bolder px-5">
+                <h5 class="m-0 p-0">
+                    <?php echo $_SESSION['invalid_user'] ?>
+                </h5>
+            </div>
+            
+            <?php }
+            
+                unset($_SESSION['invalid_user'])
+            ?>
     
 
     <div class="reg d-flex justify-content-center align-items-center" style="width:100vw;height:100vh;background:rgba(255,255,255,0.6);position:fixed;top:0;">
@@ -97,7 +116,7 @@
                 </p>
             </div>
             <div class="col-lg-6">
-                <form action="" method="POST" class="col-lg-8 shadow rounded-3 mx-auto bg-white p-5">
+                <form action="./login.php" method="POST" class="col-lg-8 shadow rounded-3 mx-auto bg-white p-5">
                     <input type="text" class="form-control my-2" name="username" placeholder="Email address or phone number">
                     <input type="password" class="form-control my-2" name="pass" placeholder="Password">
                     <button class="btn btn-primary fw-bold w-100 my-1">
@@ -118,6 +137,7 @@
         let close =document.querySelector('.bi-x-lg')
         let reg =document.querySelector('.reg')
         let regForm =document.querySelector('.reg-form')
+        let flash =document.querySelector('.flash')
         btn.addEventListener('click',()=>{
             reg.style.scale = '1'
             setTimeout(() => {
@@ -130,6 +150,14 @@
                 reg.style.scale = '0'
             },500)
         })
+
+
+        setTimeout(()=>{
+            flash.style.transition = 'all 0.8s'
+            flash.style.transform = 'translate(-50%,-200%) scale(0)'
+        },2000)
+
+
     </script>
 </body>
 </html>
